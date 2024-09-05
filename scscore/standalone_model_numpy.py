@@ -25,7 +25,7 @@ FP_rad = 2
 
 
 def sigmoid(x):
-    return 1 / (1 + math.exp(-x))
+    return 1 / (1 + np.exp(-x))
 
 
 class SCScorer:
@@ -98,6 +98,15 @@ class SCScorer:
                 x = x * (x > 0)  # ReLU
         x = 1 + (score_scale - 1) * sigmoid(x)
         return x
+
+    def get_scores(self, smiles):
+        # Note handling invalid smiles
+        fps = np.array(
+            [self.smi_to_fp(smi) for smi in smiles],
+            dtype=np.float32,
+        )
+        scores = self.apply(fps)
+        return scores[:, 0].tolist()
 
     def get_score_from_smi(self, smi="", v=False):
         if not smi:
