@@ -5,7 +5,7 @@ setup(
     name="scscore",
     author="Connor Coley",
     version="0.1.2",
-    packages=find_packages("scscore"),
+    packages=find_packages(),
     package_data={
         "scscore": [
             "models/full_reaxys_model_1024bool/*.gz",
